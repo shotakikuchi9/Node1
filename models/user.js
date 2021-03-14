@@ -1,10 +1,14 @@
-const mongoose = require('mongoose')
+const mysql = require('mysql');
 
-const userSchema = mongoose.Schema({
-  name: String,
-  email: String,
-  password: String,
-  passwordConfirmation: String
+const con = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
 })
 
-module.exports = mongoose.model('user',userSchema)
+con.connect(function(error) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('connect');
+  }
+})
