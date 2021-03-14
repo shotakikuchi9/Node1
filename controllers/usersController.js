@@ -20,9 +20,9 @@ module.exports = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        passwordConfirmation: req.body.passwordConfirmation
       }
       console.log(newUser);
+      User.createUser(newUser);
       res.render('dashboard', {userData: req.body})
     }
   }
