@@ -1,16 +1,26 @@
 const port = 3000
 const express = require('express')
-const userController = require('./controllers/userController')
+const usersController = require('./controllers/usersController')
 const app = express();
+const User = require('./models/user')
+const validator = require('./validator')
+
+app.use(
+  express.urlencoded({
+    extended: false
+  })
+)
+
+app.use(express.json());
+
 app.set('view engine', 'ejs')
-const layouts = require('express-ejs-layouts');
 
-app.use(layouts)
+app.get('/', usersController.showLoginPage)
 
-app.set('view engine', 'ejs');
+app.get('/register', usersController.showRegisterPage)
 
-app.get('/', userController.showLoginPage)
+app.get('/dashboard', usersController.showDashboardPage)
 
-app.get('/register', userController.showRegisterPage)
+app.post('/dashboard', validator, usersController.saveUser)
 
 app.listen(port)
